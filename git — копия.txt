@@ -1,0 +1,22 @@
+import com.codeborne.selenide.Configuration;
+import org.junit.jupiter.api.BeforeAll;
+import org.junit.jupiter.api.Test;
+
+import static com.codeborne.selenide.Selenide.*;
+
+   
+
+@Test
+public void testLogin() {
+open("/login");
+$("#username").setValue("Username"); 
+$("#password").setValue("Password");
+		   
+$("#loginButton").click();
+        
+$("h1").shouldHave(text("RANIL KHAIRULLIN"));
+}
+}
+   
+   
+   

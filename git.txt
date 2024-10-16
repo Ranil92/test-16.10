@@ -1,0 +1,39 @@
+import io.restassured.RestAssured;
+import io.restassured.response.Response;
+import org.junit.Test;
+
+import static io.restassured.RestAssured.given;
+import static org.hamcrest.Matchers.equalTo;
+
+
+
+@Test
+public void testSuccessfulLogin() {
+String requestBody = "{ "username": "Username", "password": "Password" }";
+
+Response response = given()
+.contentType("application/json")
+.body(requestBody)
+.when()
+.post("/login")
+.then()
+.statusCode(200)
+.body("message", equalTo("Login successful"))
+.extract()
+.response();
+}
+
+@Test
+public void testFailedLogin() {
+String requestBody = "{ "username": "invalidUser", "password": "invalidPassword" }";
+
+given()
+.contentType("application/json")
+.body(requestBody)
+.when()
+.post("/login")
+.then()
+.statusCode(401)
+.body("message", equalTo("Invalid credentials"));
+}
+}
